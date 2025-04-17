@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🏥 MediScan - AI Dermatology App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+  <!-- ✅ Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <div class="container py-4">
+    <div id="notification" class="mb-3"></div>
+
+    <!-- Authentication Container -->
+    <div id="auth-container" class="">
+      <h2 class="mb-4">Doctor Login</h2>
+      <form id="login-form" class="mb-3">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" id="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" id="signup-link">Contact admin</a></p>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div id="dashboard-container" class="d-none">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>🏥 MediScan Dashboard</h2>
+        <div>
+          <span id="user-email" class="me-3"></span>
+          <button id="logout-btn" class="btn btn-outline-danger btn-sm">Logout</button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" id="patients-tab">Patients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="scan-tab">Scan Patient</a>
+        </li>
+      </ul>
+
+      <!-- Patients View -->
+      <div id="patients-view">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4>All Patients</h4>
+          <button id="add-patient-btn" class="btn btn-success btn-sm">Add Patient</button>
+        </div>
+        <ul id="patients-table-body">
+          <!-- Patient rows inserted here -->
+        </ul>
+      </div>
+
+      <!-- Scan View -->
+      <div id="scan-view" class="d-none">
+        <h4>Scan Patient Face</h4>
+        <video id="video" autoplay playsinline class="border rounded mb-3"></video>
+        <canvas id="canvas" class="d-none"></canvas>
+        <div class="mb-3">
+          <button id="capture-btn" class="btn btn-primary me-2"><i class="bi bi-camera"></i> Capture</button>
+          <button id="reset-camera-btn" class="btn btn-secondary">Reset Camera</button>
+        </div>
+        <div id="match-result" class="mb-3"></div>
+
+        <!-- New Patient Form -->
+        <div id="new-patient-form" class="d-none">
+          <h5>Add New Patient</h5>
+          <div class="mb-3">
+            <label for="patient-name" class="form-label">Patient Name</label>
+            <input type="text" id="patient-name" class="form-control" />
+          </div>
+          <button id="save-new-patient" class="btn btn-success">Save Patient</button>
+        </div>
+      </div>
+
+      <!-- Patient Detail View -->
+      <div id="patient-detail-view" class="d-none">
+        <h4 id="patient-detail-title"></h4>
+        <div id="patient-info" class="mb-3"></div>
+
+        <h5>Treatments</h5>
+        <div id="treatments-list" class="mb-3"></div>
+        <button id="add-treatment-btn" class="btn btn-primary btn-sm mb-3">Add Treatment</button>
+
+        <!-- Add Treatment Modal -->
+        <div class="modal fade" id="addTreatmentModal" tabindex="-1" aria-labelledby="addTreatmentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addTreatmentModalLabel">Add Treatment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <textarea id="treatment-details" class="form-control" rows="3" placeholder="Enter treatment details"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="save-treatment-btn" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button id="back-to-patients-btn" class="btn btn-secondary btn-sm">Back to Patients</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
